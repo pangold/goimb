@@ -1,0 +1,36 @@
+front:
+  api:
+    disabled: true
+    address: 0.0.0.0:10010
+  session:
+    disabled: true
+    address: 0.0.0.0:10011
+  adapter:
+    protocol: grpc # grpc or kafka
+    grpc:
+      disabled: true
+      address: 0.0.0.0:10011
+    kafka:
+      disabled: true
+      address: 0.0.0.0:10012
+
+service:
+  mongodb:
+    disabled: true
+    address: 0.0.0.0:10013
+  mysql:
+    disabled: true
+    user: root
+    password: root
+    host: 127.0.0.1
+    port: 3306
+    dbname: test
+
+api:
+  protocols:
+    - grpc
+    - http
+  grpc:
+    address: 0.0.0.0:10014
+  http:
+    address: 0.0.0.0:10015

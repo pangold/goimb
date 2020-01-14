@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package imb;
+
+import "model.proto";
+
+service GroupService {
+    rpc GetGroups(QueryGroupsRequest) returns (Groups) {};
+    rpc GetGroup(QueryGroupRequest) returns (GroupInfo) {};
+    rpc GetGroupMembers(QueryGroupRequest) returns (GroupMembers) {};
+    //
+    rpc GroupCreate(GroupInfo) returns (GroupResponse) {};
+    rpc GroupDismiss(GroupDismissRequest) returns (GroupResponse) {};
+    rpc GroupMasterChange(GroupMasterChangeRequest) returns (GroupResponse) {};
+    rpc GroupAdminPromote(GroupAdminPromoteRequest) returns (GroupResponse) {};
+    rpc GroupAdminDemote(GroupAdminDemoteRequest) returns (GroupResponse) {};
+    rpc GroupJoinApply(GroupJoinApplyRequest) returns (GroupResponse) {};
+    rpc GroupJoinReject(GroupJoinHandleRequest) returns (GroupResponse) {};
+    rpc GroupJoinAccept(GroupJoinHandleRequest) returns (GroupResponse) {};
+    rpc GroupMemberTake(GroupMemberTakeRequest) returns (GroupResponse) {};
+    rpc GroupMemberLeave(GroupMemberLeaveRequest) returns (GroupResponse) {};
+    rpc GroupMemberKick(GroupMemberKickRequest) returns (GroupResponse) {};
+}
+
+message QueryGroupsRequest {
+    string userId = 1;
+}
+
+message QueryGroupRequest {
+    string userId = 1;
+    string groupId = 2;
+}
+
+message GroupDismissRequest {
+    string userId = 1;               //
+    string groupId = 2;
+}
+
+message GroupMasterChangeRequest {
+    string userId = 1;               // an user who is the master currently
+    string groupId = 2;
+    string targetId = 3;             // next master
+    string postscript = 4;           // words(not really need it)
+}
+
+message GroupAdminPromoteRequest {
+    string userId = 1;               // an user who promotes another member to be an administrator
+    string groupId = 2;              //
+    string targetId = 3;             // an user who is being a new administrator
+}
+
+message GroupAdminDemoteRequest {
+    string userId = 1;               // an user who promotes/demotes another member to be an administrator
+    string groupId = 2;              //
+    string targetId = 3;             // an user who is being an administrator / demoting to be an ordinary member
+}
+
+message GroupJoinApplyRequest {
+    string userId = 1;               // an user who is applying to join the group
+    string groupId = 2;              //
+    string postscript = 3;           // to show who you are.
+}
+
+message GroupJoinHandleRequest {
+    string userId = 1;               // an user who accepts/rejects this request(needs admin permission)
+    string groupId = 2;              //
+    string targetId = 3;             // an user who applied to join
+    string postscript = 4;
+}
+
+message GroupMemberTakeRequest {
+    string userId = 1;               // an user who takes another users in this group
+    string groupId = 2;              //
+    string targetId = 3;             // new members of this group
+}
+
+message GroupMemberLeaveRequest {
+    string userId = 1;               // an user who is leaving the group
+    string groupId = 2;              //
+}
+
+message GroupMemberKickRequest {
+    string userId = 1;               // an user who is doing operation kick(needs admin permission)
+    string groupId = 2;              //
+    string targetId = 3;             // an user who is being kicked
+}
+
+message GroupResponse {
+    int32 code = 1;
+    string message = 2;
+    bytes data = 3;
+}

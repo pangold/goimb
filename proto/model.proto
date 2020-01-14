@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package imb;
+
+message UserInfo {
+    string userId                = 1;
+    string nickName              = 2;
+    string url                   = 3;
+}
+
+message Users {
+    repeated UserInfo users      = 1;
+}
+
+message Friends {
+    repeated UserInfo friends    = 1;
+}
+
+message GroupInfo {
+    string groupId               = 1;
+    string groupName             = 2;
+    string script                = 3;
+    repeated GroupMember members = 4;
+}
+
+enum Role {
+    ROLE_ORDINARY                = 0;
+    ROLE_MASTER                  = 1;
+    ROLE_ADMIN                   = 2;
+}
+
+message GroupMember {
+    string groupId               = 1;
+    UserInfo user                = 2;
+    Role role                    = 3;
+}
+
+message GroupMembers {
+    repeated GroupMember members = 1;
+}
+
+message Groups {
+    repeated GroupInfo groups    = 1;
+}

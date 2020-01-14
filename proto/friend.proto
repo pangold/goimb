@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package imb;
+
+import "model.proto";
+
+service FriendService {
+    rpc GetFriendInfo(QueryFriendRequest) returns (UserInfo) {};
+    rpc GetFriends(QueryFriendRequest) returns (Friends) {};
+    //
+    rpc FriendMakingApply(FriendMakingRequest) returns (FriendResponse) {};
+    rpc FriendMakingAccept(FriendMakingRequest) returns (FriendResponse) {};
+    rpc FriendMakingReject(FriendMakingRequest) returns (FriendResponse) {};
+    rpc FriendBreakup(FriendBreakupRequest) returns (FriendResponse) {};
+    rpc FriendRecommendation(FriendRecommendationRequest) returns (FriendResponse) {};
+}
+
+message QueryFriendRequest {
+    string userId = 1;
+}
+
+message FriendMakingRequest {
+    string userId = 1;
+    string targetId = 2;
+    string postscript = 3;
+}
+
+message FriendBreakupRequest {
+    string userId = 1;
+    string targetId = 2;
+    string postscript = 3;
+}
+
+message FriendRecommendationRequest {
+    string userId = 1;
+    string targetId = 2;
+    string recommendId = 3;
+    string postscript = 4;
+}
+
+message FriendResponse {
+    int32 code = 1;
+    string message = 2;
+    bytes data = 3;
+}
